@@ -5,5 +5,11 @@
   "main": "",
   "author": "",
   "license": "",
-  "dependencies": {}
+  "dependencies": {
+    'basic': 'file:../../commons/basic',
+    'home': 'file:../../features/home',
+    'cart': 'file:../../features/cart',
+    'category': 'file:../../features/category',
+    'my': 'file:../../features/my'
+  }
 }

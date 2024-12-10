@@ -51,7 +51,7 @@ struct Index {
     }
     .barPosition(this.breakPoint == BreakpointConstants.LG ? BarPosition.Start : BarPosition.End)
     .vertical(this.breakPoint == BreakpointConstants.LG ? true : false)
-    .padding({ top: this.topHeight, bottom: this.bottomHeight })
+    .padding({  bottom: this.bottomHeight })
     .scrollable(false)
     .onTabBarClick(index => {
       animateTo({duration:500},()=>{

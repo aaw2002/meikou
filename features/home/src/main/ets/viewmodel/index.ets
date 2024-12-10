@@ -35,3 +35,6 @@ export interface Params {
   list: MkGoodsItem[]
 }
 
+
+
+

@@ -1,5 +1,5 @@
 import { axiosInstance, BreakpointConstants, BreakPointKey, BreakPointType, Log, ResponseType, SafeArea } from 'basic'
-import { getBannerList } from '../apis'
+import { getBannerList, getCategoryList } from '../apis'
 import { DiscountGoodsComp, DiscountType } from '../components/DiscountGoodsComp'
 import { MkGoods } from '../components/MkGoods'
 import { Banner, CategoryItem, MkGoodsItem, Params } from '../viewmodel'
@@ -27,18 +27,18 @@ export struct HomeView {
 
   // 生成模拟数据
   mockData() {
-/*    this.banners = new Array(6).fill({
-      id: "42",
-      imgUrl: "https://yjy-teach-oss.oss-cn-beijing.aliyuncs.com/meikou/banner/nuandong_sj.png",
-      hrefUrl: "/category/1181622006",
-      type: "1"
-    })*/
+    /*    this.banners = new Array(6).fill({
+          id: "42",
+          imgUrl: "https://yjy-teach-oss.oss-cn-beijing.aliyuncs.com/meikou/banner/nuandong_sj.png",
+          hrefUrl: "/category/1181622006",
+          type: "1"
+        })*/
 
-    this.categories = new Array(10).fill({
+    /*this.categories = new Array(10).fill({
       id: "1181622001",
       name: "气质女装",
       picture: "https://yjy-teach-oss.oss-cn-beijing.aliyuncs.com/meikou/c1/qznz.png"
-    })
+    })*/
 
     this.saleGoods = new Array(6).fill({
       "id": "1111002",
@@ -92,6 +92,9 @@ export struct HomeView {
   private async getData() {
     const res = await getBannerList()
     this.banners = res.data.result
+    const res2 = await getCategoryList()
+    Log.info(res2.data.result)
+    this.categories = res2.data.result
   }
 
   @Builder

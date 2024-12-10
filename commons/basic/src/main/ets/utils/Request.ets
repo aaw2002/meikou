@@ -21,17 +21,17 @@ export class RequestAxios {
   }
 
   //post
-  static post<T>(url: string, data?: object) {
+  static post<T>(url: string, data?: object): Promise<ResponseType<T>> {
     return axiosInstance.post<null, ResponseType<T>>(url, data);
   }
 
   //delete
-  static delete<T>(url: string, data?: object) {
+  static delete<T>(url: string, data?: object) : Promise<ResponseType<T>>{
     return axiosInstance.post<null, ResponseType<T>>(url, data);
   }
 
   //put
-  static put<T>(url: string, data?: object) {
+  static put<T>(url: string, data?: object) :Promise<ResponseType<T>>{
     return axiosInstance.post<null, ResponseType<T>>(url, data);
   }
 }

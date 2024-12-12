@@ -5,6 +5,7 @@ import {
   BreakPointType,
   Log,
   MkLoading,
+  pageStack,
   ResponseType,
   SafeArea
 } from 'basic'
@@ -24,7 +25,6 @@ import { Banner, CategoryItem, MkGoodsItem, Params, RecommendedList } from '../v
 
 @Component
 export struct HomeView {
-  // 轮播图
   @State banners: Banner[] = []
   // 分类
   @State categories: CategoryItem[] = []
@@ -71,6 +71,7 @@ export struct HomeView {
         }
         if (arr[1].status == 'fulfilled') {
           this.categories = arr[1].value.data.result
+          AppStorage.setOrCreate('categories', this.categories)
         }
         if (arr[2].status == 'fulfilled') {
           this.saleGoods = arr[2].value.data.result.subTypes[0].goodsItems.items
@@ -139,7 +140,7 @@ export struct HomeView {
       MkLoading()
     }
     .width('100%')
-    .margin({bottom:8})
+    .margin({ bottom: 8 })
     .justifyContent(FlexAlign.Center)
   }
 
@@ -190,6 +191,9 @@ export struct HomeView {
                 .height(40)
                 .borderRadius(20)
                 .padding({ left: 12 })
+                .onClick(() => {
+                  pageStack.pushPath({ name: 'SearchView' })
+                })
               }
               .padding({ left: 16, right: 16, top: this.topHeight })
             }
@@ -200,7 +204,7 @@ export struct HomeView {
             Column({ space: 10 }) {
               // 分类
               List({ space: 16 }) {
-                ForEach(this.categories, (item: CategoryItem) => {
+                ForEach(this.categories, (item: CategoryItem, index) => {
                   ListItem() {
                     Column() {
                       Image(item.picture)

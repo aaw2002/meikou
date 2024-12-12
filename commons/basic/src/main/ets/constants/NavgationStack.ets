@@ -1,0 +1,1 @@
+export const pageStack=new NavPathStack();

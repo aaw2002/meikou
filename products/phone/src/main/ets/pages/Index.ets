@@ -1,4 +1,4 @@
-import { BreakpointConstants, BreakPointKey, Log, SafeArea } from 'basic'
+import { BreakpointConstants, BreakPointKey, Log, pageStack, SafeArea } from 'basic'
 import { CartView } from 'cart'
 import { CategoryView } from 'category'
 import { HomeView } from 'home'
@@ -16,13 +16,10 @@ struct Index {
   @StorageProp(SafeArea.TopHeight) topHeight: number = 0
   @StorageProp(SafeArea.BottomHeight) bottomHeight: number = 0
   @StorageProp(BreakPointKey) breakPoint: string = ''
-
-
+@State activeIndex: number = 0
   aboutToAppear(): void {
 
   }
-
-  @State activeIndex: number = 0
   list: TabItem[] = [
     { text: '首页', normal: $r('app.media.ic_public_home_normal'), active: $r('app.media.ic_public_home_active') },
     { text: '分类', normal: $r('app.media.ic_public_pro_normal'), active: $r('app.media.ic_public_pro_active') },
@@ -31,33 +28,35 @@ struct Index {
   ]
 
   build() {
+    Navigation(pageStack) {
+      Tabs({ barPosition: BarPosition.End }) {
+        ForEach(this.list, (item: TabItem, index: number) => {
+          TabContent() {
 
-    Tabs({ barPosition: BarPosition.End }) {
-      ForEach(this.list, (item: TabItem, index: number) => {
-        TabContent() {
-
-          if (index == 0) {
-            HomeView()
-          } else if (index == 1) {
-            CategoryView()
-          } else if (index == 2) {
-            CartView()
-          } else {
-            MyView()
+            if (index == 0) {
+              HomeView()
+            } else if (index == 1) {
+              CategoryView()
+            } else if (index == 2) {
+              CartView()
+            } else {
+              MyView()
+            }
           }
-        }
-        .tabBar(this.TabItemBuilder(item, index))
+          .tabBar(this.TabItemBuilder(item, index))
+        })
+      }
+      .barPosition(this.breakPoint == BreakpointConstants.LG ? BarPosition.Start : BarPosition.End)
+      .vertical(this.breakPoint == BreakpointConstants.LG ? true : false)
+      .padding({ bottom: this.bottomHeight })
+      .scrollable(false)
+      .onTabBarClick(index => {
+        animateTo({ duration: 500 }, () => {
+          this.activeIndex = index
+        })
       })
-    }
-    .barPosition(this.breakPoint == BreakpointConstants.LG ? BarPosition.Start : BarPosition.End)
-    .vertical(this.breakPoint == BreakpointConstants.LG ? true : false)
-    .padding({  bottom: this.bottomHeight })
-    .scrollable(false)
-    .onTabBarClick(index => {
-      animateTo({duration:500},()=>{
-        this.activeIndex = index
-      })
-    })
+    }.hideTitleBar(true)
+    .mode(NavigationMode.Stack)
   }
 
   @Builder

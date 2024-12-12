@@ -1,6 +1,7 @@
 import { axiosInstance, CategoryItem, MkGoodsItem, RequestAxios, ResponseType } from "basic"
 import { MkGoods } from "../components/MkGoods"
 import { Banner, HOtResult } from "../viewmodel"
+import { SearchParams, SearchResult } from "../views/SearchResultView"
 
 // 获取轮播图
 export const getBannerList = async () => {
@@ -37,4 +38,9 @@ export const getRecommendGoods = async (limit?:number) => {
   return await RequestAxios.get<MkGoodsItem[]>('/home/recommend',new  Object({
     limit:limit
   }))
+}
+
+//搜索商品
+export  async  function getSearhGoods(data: SearchParams){
+return await RequestAxios.post<SearchResult>('/search/all',data)
 }
